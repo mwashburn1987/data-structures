@@ -6,7 +6,7 @@ var Queue = function() {
   return queue;
 };
 
-var queueMethods = {
+queueMethods = {
   enqueue: function(value) {
     let keys = Object.keys(this.storage);
     let index = keys[keys.length - 1] + 1;
