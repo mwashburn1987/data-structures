@@ -9,9 +9,6 @@ var Graph = function() {
 Graph.prototype.addNode = function(node) {
   this.storage[node] = {value: node};
   this.storage[node].edges = new Set();
-  var edges = new Set();
-  // console.log(edges);
-  // console.log(this.storage[node].edges);
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
@@ -26,14 +23,10 @@ Graph.prototype.removeNode = function(node) {
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  // if (this.storage[fromNode].toNode === this.storage[toNode]) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
-  // var edges = new Set(this.storage[fromNode].edges);
-  // console.log(this.storage[fromNode].edges);
-  if (this.storage[fromNode].edges.has(toNode)) {
+  if (!this.storage[fromNode] || !this.storage[toNode]) {
+    return false;
+  }
+  if (this.storage[fromNode].edges.contains(toNode) && this.storage[toNode].edges.contains(fromNode)) {
     return true;
   } else {
     return false;
@@ -42,31 +35,14 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
-  // console.log('from : ' + fromNode);
-  // console.log('to : ' + toNode);
-  // add a property to fromNode that equals toNode
-  // if (!this.storage[fromNode].to) {
-  //   this.storage[fromNode].to = this.storage[toNode];
-  //   this.storage[toNode].from = this.storage[fromNode];
-  //   console.log(this.storage[fromNode]);
-  // }
-  // this.storage[toNode].fromNode = this.storage[fromNode];
-  // this.storage[fromNode].toNode = this.storage[toNode];
-  // this.storage[toNode].toNode = this.storage[fromNode];
-  // this.storage[fromNode].fromNode = this.storage[toNode];
-  // add a property to toNode that equals fromNode
   this.storage[fromNode].edges.add(toNode);
   this.storage[toNode].edges.add(fromNode);
-  // console.log(this.storage);
 };
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
-  // fromNode and toNode properties to be null
-  this.storage[fromNode].toNode = null;
-  this.storage[toNode].fromNode = null;
-  this.storage[fromNode].fromNode = null;
-  this.storage[toNode].toNode = null;
+  this.storage[fromNode].edges.remove(toNode);
+  this.storage[toNode].edges.remove(fromNode);
 };
 
 // Pass in a callback which will be executed on each node of the graph.
@@ -80,4 +56,4 @@ Graph.prototype.forEachNode = function(cb) {
  * Complexity: What is the time complexity of the above functions?
  */
 
-
+// We used our implementation of the set data structure that we created and created a graph that uses constant time complexity.
