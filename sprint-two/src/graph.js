@@ -8,6 +8,10 @@ var Graph = function() {
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
   this.storage[node] = {value: node};
+  this.storage[node].edges = new Set();
+  var edges = new Set();
+  // console.log(edges);
+  // console.log(this.storage[node].edges);
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
@@ -22,7 +26,14 @@ Graph.prototype.removeNode = function(node) {
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  if (this.storage[fromNode].toNode === this.storage[toNode]) {
+  // if (this.storage[fromNode].toNode === this.storage[toNode]) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  // var edges = new Set(this.storage[fromNode].edges);
+  // console.log(this.storage[fromNode].edges);
+  if (this.storage[fromNode].edges.has(toNode)) {
     return true;
   } else {
     return false;
@@ -39,11 +50,14 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
   //   this.storage[toNode].from = this.storage[fromNode];
   //   console.log(this.storage[fromNode]);
   // }
-  this.storage[toNode].fromNode = this.storage[fromNode];
-  this.storage[fromNode].toNode = this.storage[toNode];
-  this.storage[toNode].toNode = this.storage[fromNode];
-  this.storage[fromNode].fromNode = this.storage[toNode];
+  // this.storage[toNode].fromNode = this.storage[fromNode];
+  // this.storage[fromNode].toNode = this.storage[toNode];
+  // this.storage[toNode].toNode = this.storage[fromNode];
+  // this.storage[fromNode].fromNode = this.storage[toNode];
   // add a property to toNode that equals fromNode
+  this.storage[fromNode].edges.add(toNode);
+  this.storage[toNode].edges.add(fromNode);
+  // console.log(this.storage);
 };
 
 // Remove an edge between any two specified (by value) nodes.
