@@ -24,4 +24,18 @@ queueMethods = {
   }
 };
 
+queueMethods.enqueue = function(value) {
+  this.storage[this.top] = value;
+  this.top++;
+};
 
+queueMethods.dequeue = function() {
+  var dequeued = this.storage[this.bottom];
+  delete this.storage[this.bottom];
+  this.bottom++;
+  return dequeued;
+};
+
+queueMethods.size = function() {
+  return Object.keys(this.storage).length;
+};

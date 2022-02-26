@@ -23,4 +23,18 @@ Stack.prototype.size = function() {
 };
 var stack = new Stack();
 
+Stack.prototype.push = function(value) {
+  this.storage[this.top] = value;
+  this.top++;
+};
 
+Stack.prototype.pop = function() {
+  this.top--;
+  var popped = this.storage[this.top];
+  delete this.storage[this.top];
+  return popped;
+};
+
+Stack.prototype.size = function() {
+  return Object.keys(this.storage).length;
+};

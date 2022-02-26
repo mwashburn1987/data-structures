@@ -5,6 +5,10 @@ var Stack = function() {
   var stack = Object.create(stackMethods);
   stack.storage = {};
   return stack;
+  var newInstance = Object.create(stackMethods);
+  newInstance.storage = {};
+  newInstance.top = 0;
+  return newInstance;
 };
 
 var stackMethods = {
@@ -26,4 +30,18 @@ var stackMethods = {
   }
 };
 
+stackMethods.push = function(value) {
+  this.storage[this.top] = value;
+  this.top++;
+};
 
+stackMethods.pop = function() {
+  this.top--;
+  var popped = this.storage[this.top];
+  delete this.storage[this.top];
+  return popped;
+};
+
+stackMethods.size = function() {
+  return Object.keys(this.storage).length;
+};

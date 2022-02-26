@@ -20,4 +20,19 @@ class Stack {
     return Object.keys(this.storage).length;
   }
 
+  push(value) {
+    this.storage[this.top] = value;
+    this.top++;
+  }
+
+  pop() {
+    this.top--;
+    var popped = this.storage[this.top];
+    delete this.storage[this.top];
+    return popped;
+  }
+
+  size() {
+    return Object.keys(this.storage).length;
+  }
 }

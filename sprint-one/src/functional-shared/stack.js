@@ -33,4 +33,18 @@ var stackMethods = {
 };
 
 
+stackMethods.push = function(value) {
+  this.storage[this.top] = value;
+  this.top++;
+};
 
+stackMethods.pop = function() {
+  this.top--;
+  var popped = this.storage[this.top];
+  delete this.storage[this.top];
+  return popped;
+};
+
+stackMethods.size = function() {
+  return Object.keys(this.storage).length;
+};
